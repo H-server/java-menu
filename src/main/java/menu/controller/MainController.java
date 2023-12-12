@@ -16,10 +16,12 @@ public class MainController {
         String[] coachNames = manageCoachName(coach);
         manageForbiddenMenus(coach, coachNames);
 
-        Category category = new Category();
-        String currentCategory = category.setCategory();
         Recommendation recommendation = new Recommendation(coachNames);
-        recommendation.setMenu(currentCategory, coachNames);
+        Category category = new Category();
+        for(int i=0; i<5; i++) {
+            String currentCategory = category.setCategory();
+            recommendation.setMenu(currentCategory, coachNames);
+        }
     }
 
     private static String[] manageCoachName(Coach coach) {
