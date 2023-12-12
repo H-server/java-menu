@@ -14,11 +14,13 @@ public class MainController {
         OutputView.printStartMessage();
         Coach coach = new Coach();
         String[] coachNames = null;
-        while(coachNames == null) {
+        boolean isSatisfied = false;
+        while(!isSatisfied) {
             try {
                 coachNames = coach.setCoach(InputView.readCoachNames());
+                isSatisfied = true;
             } catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException(e.getMessage());
+                System.out.println(e.getMessage());
             }
         }
         // 코치 이름 리스트, 각 코치가 못 먹는 메뉴 Map으로 받아오기
