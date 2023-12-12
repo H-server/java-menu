@@ -40,7 +40,7 @@ public class Category {
                 count++;
             }
         }
-        return count > 2;
+        return count >= 2;
     }
 
     public static List<String> getSelectedCategories() {
