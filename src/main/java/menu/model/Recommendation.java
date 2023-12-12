@@ -30,6 +30,7 @@ public class Recommendation {
             menus.add(menu);
             menuResult.put(entry.getKey(), menus);
         }
+        System.out.println(menuResult);
     }
 
     private static List<String> getMenuList(String currentCategory) {
