@@ -42,4 +42,8 @@ public class Category {
         }
         return count > 2;
     }
+
+    public static List<String> getSelectedCategories() {
+        return selectedCategories;
+    }
 }

@@ -31,7 +31,6 @@ public class Recommendation {
             menus.add(menu);
             menuResult.put(coach, menus);
         }
-        menuResult.entrySet().stream().forEach(entry -> System.out.println(entry.getKey() + ": " + entry.getValue()));
     }
 
     private static List<String> getMenuList(String currentCategory) {
@@ -43,5 +42,9 @@ public class Recommendation {
             }
         }
         return currentMenuList;
+    }
+
+    public static Map<String, List<String>> getMenuResult() {
+        return menuResult;
     }
 }

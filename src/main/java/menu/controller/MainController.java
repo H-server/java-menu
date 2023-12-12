@@ -22,6 +22,7 @@ public class MainController {
             String currentCategory = category.setCategory();
             recommendation.setMenu(currentCategory, coachNames);
         }
+        OutputView.printMenuResult();
     }
 
     private static String[] manageCoachName(Coach coach) {
