@@ -16,11 +16,10 @@ public class MainController {
         String[] coachNames = manageCoachName(coach);
         manageForbiddenMenus(coach, coachNames);
 
-        Map<String, List<String>> engagedCoaches = new HashMap<>();
         Category category = new Category();
         String currentCategory = category.setCategory();
-        Recommendation recommendation = new Recommendation(engagedCoaches);
-        recommendation.setMenu(currentCategory);
+        Recommendation recommendation = new Recommendation(coachNames);
+        recommendation.setMenu(currentCategory, coachNames);
     }
 
     private static String[] manageCoachName(Coach coach) {
@@ -38,7 +37,6 @@ public class MainController {
     }
 
     private static void manageForbiddenMenus(Coach coach, String[] coachNames) {
-
         for(String coachName : coachNames) {
             boolean isSatisfied = false;
             while(!isSatisfied) {

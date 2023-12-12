@@ -1,6 +1,8 @@
 package menu.model;
 
 import camp.nextstep.edu.missionutils.Randoms;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,27 +12,26 @@ public class Recommendation {
     private static Map<String, List<String>> engagedCoaches = new HashMap<>();
     private static Map<String, List<String>> menuResult = new HashMap<>();
 
-    public Recommendation(Map<String, List<String>> engagedCoaches) {
-        engagedCoaches = engagedCoaches;
-        for (String key : engagedCoaches.keySet()) {
-            menuResult.put(key, null);
+    public Recommendation(String[] coachNames) {
+        for (String key : coachNames) {
+            menuResult.put(key, new ArrayList<>());
         }
     }
 
-    public void setMenu(String currentCategory) {
+    public void setMenu(String currentCategory, String[] coachNames) {
         List<String> currentMenuList = getMenuList(currentCategory);
-        for (Map.Entry<String, List<String>> entry : engagedCoaches.entrySet()) {
+        for (String coach : coachNames) {
             String menu = null;
             boolean isUnique = false;
             while(!isUnique) {
                 menu = Randoms.shuffle(currentMenuList).get(0);
-                isUnique = validateMenu(entry, menu);
+                isUnique = Coach.validateMenu(coach, menu, menuResult);
             }
-            List<String> menus = menuResult.get(entry.getKey());
+            List<String> menus = menuResult.get(coach);
             menus.add(menu);
-            menuResult.put(entry.getKey(), menus);
+            menuResult.put(coach, menus);
         }
-        System.out.println(menuResult);
+        menuResult.entrySet().stream().forEach(entry -> System.out.println(entry.getKey() + ": " + entry.getValue()));
     }
 
     private static List<String> getMenuList(String currentCategory) {
@@ -42,12 +43,5 @@ public class Recommendation {
             }
         }
         return currentMenuList;
-    }
-
-    private static boolean validateMenu(Map.Entry<String, List<String>> entry, String menu) {
-        List<String> forbiddenMenus = entry.getValue();
-        List<String> recommendatedMenus = menuResult.get(entry.getKey());
-        boolean isUnique = !(forbiddenMenus.contains(menu) || recommendatedMenus.contains(menu));
-        return isUnique;
     }
 }

@@ -1,6 +1,5 @@
 package menu.model;
 
-import java.awt.Menu;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -9,7 +8,7 @@ import java.util.stream.Collectors;
 import menu.domain.MenuCategory;
 
 public class Coach {
-    Map<String, List<String>> engagedCoaches = new HashMap<>();
+    private static Map<String, List<String>> engagedCoaches = new HashMap<>();
 
     public String[] setCoachNames(String input) {
         String[] coachNames = splitByComma(input);
@@ -67,5 +66,12 @@ public class Coach {
         if(!isSatisfied) {
             throw new IllegalArgumentException("[ERROR] 각 코치는 최소 0개, 최대 2개의 못 먹는 메뉴를 입력해야 합니다.");
         }
+    }
+
+    public static boolean validateMenu(String coach, String menu, Map<String, List<String>> menuResult) {
+        List<String> forbiddenMenus = engagedCoaches.get(coach);
+        List<String> recommendatedMenus = menuResult.get(coach);
+        boolean isUnique = !(forbiddenMenus.contains(menu) || recommendatedMenus.contains(menu));
+        return isUnique;
     }
 }
