@@ -24,8 +24,8 @@ public class Category {
         while(isDuplicated) {
             category = pickRandomCategory();
             isDuplicated = validate(category);
-            selectedCategories.add(category);
         }
+        selectedCategories.add(category);
         return category;
     }
 
