@@ -8,4 +8,8 @@ public class InputView {
         return Console.readLine();
     }
 
+    public static String readForbiddenMenu(String coachName) {
+        System.out.println(coachName + "(이)가 못 먹는 메뉴를 입력해 주세요.");
+        return Console.readLine();
+    }
 }

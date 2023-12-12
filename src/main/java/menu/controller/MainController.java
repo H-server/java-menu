@@ -13,17 +13,9 @@ public class MainController {
     public void excute() {
         OutputView.printStartMessage();
         Coach coach = new Coach();
-        String[] coachNames = null;
-        boolean isSatisfied = false;
-        while(!isSatisfied) {
-            try {
-                coachNames = coach.setCoach(InputView.readCoachNames());
-                isSatisfied = true;
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-        // 코치 이름 리스트, 각 코치가 못 먹는 메뉴 Map으로 받아오기
+        String[] coachNames = manageCoachName(coach);
+        manageForbiddenMenus(coach, coachNames);
+
         Map<String, List<String>> engagedCoaches = new HashMap<>();
         Category category = new Category();
         String currentCategory = category.setCategory();
@@ -31,4 +23,32 @@ public class MainController {
         recommendation.setMenu(currentCategory);
     }
 
+    private static String[] manageCoachName(Coach coach) {
+        String[] coachNames = null;
+        boolean isSatisfied = false;
+        while(!isSatisfied) {
+            try {
+                coachNames = coach.setCoachNames(InputView.readCoachNames());
+                isSatisfied = true;
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return coachNames;
+    }
+
+    private static void manageForbiddenMenus(Coach coach, String[] coachNames) {
+
+        for(String coachName : coachNames) {
+            boolean isSatisfied = false;
+            while(!isSatisfied) {
+                try {
+                    coach.setForbiddenMenu(coachName, InputView.readForbiddenMenu(coachName));
+                    isSatisfied = true;
+                } catch (IllegalArgumentException e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+        }
+    }
 }

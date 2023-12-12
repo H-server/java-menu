@@ -19,4 +19,13 @@ public enum MenuCategory {
     public List<String> getMenuList() {
         return menuList;
     }
+
+    public static boolean contains(String value) {
+        for (MenuCategory category : MenuCategory.values()) {
+            if (category.getMenuList().contains(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
