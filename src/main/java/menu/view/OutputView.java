@@ -21,7 +21,6 @@ public class OutputView {
             printWithJoiner(values, key);
         }
         System.out.println("\n추천을 완료했습니다.");
-
     }
 
     private static void printWithJoiner(List<String> output, String index) {

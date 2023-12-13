@@ -1,5 +1,10 @@
 package menu.model;
 
+import static menu.domain.ExceptionMessage.COACH_LIMIT;
+import static menu.domain.ExceptionMessage.COACH_NAME_LENGTH;
+import static menu.domain.ExceptionMessage.FORBIDDEN_MENU_CATEGORY;
+import static menu.domain.ExceptionMessage.FORBIDDEN_MENU_LIMIT;
+
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +36,7 @@ public class Coach {
         int length = coach.length();
         boolean isSatisfied = (2 <= length && length <= 4);
         if(!isSatisfied) {
-            throw new IllegalArgumentException("[ERROR] 코치의 이름은 최소 2글자, 최대 4글자로 입력해야 합니다.");
+            throw new IllegalArgumentException(COACH_NAME_LENGTH.getMessage());
         }
     }
 
@@ -39,7 +44,7 @@ public class Coach {
         int length = coachNames.length;
         boolean isSatisfied = (2 <= length && length <= 5);
         if(!isSatisfied) {
-            throw new IllegalArgumentException("[ERROR] 코치는 최소 2명, 최대 5명으로 입력해야 합니다.");
+            throw new IllegalArgumentException(COACH_LIMIT.getMessage());
         }
     }
 
@@ -55,7 +60,7 @@ public class Coach {
     private void validateForbiddenMenus(String[] forbiddenMenus) {
         for(String menu : forbiddenMenus) {
             if(!MenuCategory.contains(menu)) {
-                throw new IllegalArgumentException("[ERROR] 메뉴 추천 서비스에 있는 메뉴를 입력해야 합니다.");
+                throw new IllegalArgumentException(FORBIDDEN_MENU_CATEGORY.getMessage());
             }
         }
     }
@@ -64,7 +69,7 @@ public class Coach {
         int length = forbiddenMenus.length;
         boolean isSatisfied = (0 <= length && length <= 2);
         if(!isSatisfied) {
-            throw new IllegalArgumentException("[ERROR] 각 코치는 최소 0개, 최대 2개의 못 먹는 메뉴를 입력해야 합니다.");
+            throw new IllegalArgumentException(FORBIDDEN_MENU_LIMIT.getMessage());
         }
     }
 
