@@ -19,12 +19,10 @@ public class Category {
     }
 
     public String setCategory() {
-        String category = null;
-        boolean isDuplicated = true;
-        while(isDuplicated) {
+        String category;
+        do {
             category = pickRandomCategory();
-            isDuplicated = validate(category);
-        }
+        } while (validate(category));
         selectedCategories.add(category);
         return category;
     }
