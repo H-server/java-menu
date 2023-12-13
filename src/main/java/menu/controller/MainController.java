@@ -14,11 +14,15 @@ public class MainController {
         manageForbiddenMenus(coach, coachNames);
         Recommendation recommendation = new Recommendation(coachNames);
         Category category = new Category();
-        for(int i=0; i<5; i++) {
+        setMenuForWeek(recommendation, category, coachNames);
+        OutputView.printMenuResult();
+    }
+
+    private void setMenuForWeek(Recommendation recommendation, Category category, String[] coachNames) {
+        for (int i = 0; i < 5; i++) {
             String currentCategory = category.setCategory();
             recommendation.setMenu(currentCategory, coachNames);
-        } // 월~금 애초에 쫀쫀하게 데이터 저장하는 방법? 0,5 이런 숫자보다.. 한명 한명을 인스턴스로 만들면 편할 듯?!
-        OutputView.printMenuResult();
+        }
     }
 
     private static String[] manageCoachName(Coach coach) {
