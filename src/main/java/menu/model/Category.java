@@ -22,7 +22,7 @@ public class Category {
         String category;
         do {
             category = pickRandomCategory();
-        } while (validate(category));
+        } while (!validate(category));
         selectedCategories.add(category);
         return category;
     }
@@ -38,7 +38,7 @@ public class Category {
                 count++;
             }
         }
-        return count >= 2;
+        return count < 2;
     }
 
     public static List<String> getSelectedCategories() {

@@ -8,7 +8,6 @@ import java.util.Map;
 import menu.domain.MenuCategory;
 
 public class Recommendation {
-    private static Map<String, List<String>> engagedCoaches = new HashMap<>();
     private static Map<String, List<String>> menuResult = new HashMap<>();
 
     public Recommendation(String[] coachNames) {
@@ -19,17 +18,21 @@ public class Recommendation {
 
     public void setMenu(String currentCategory, String[] coachNames) {
         List<String> currentMenuList = getMenuList(currentCategory);
+
         for (String coach : coachNames) {
-            String menu = null;
-            boolean isUnique = false;
-            while(!isUnique) {
-                menu = Randoms.shuffle(currentMenuList).get(0);
-                isUnique = Coach.validateMenu(coach, menu, menuResult);
-            }
-            List<String> menus = menuResult.get(coach);
-            menus.add(menu);
-            menuResult.put(coach, menus);
+            setMenuForCoach(coach, currentMenuList);
         }
+    }
+
+    private void setMenuForCoach(String coach, List<String> currentMenuList) {
+        List<String> coachMenus = menuResult.get(coach);
+        String newMenu;
+
+        do {
+            newMenu = Randoms.shuffle(currentMenuList).get(0);
+        } while (!Coach.validateMenu(coach, newMenu, menuResult));
+        coachMenus.add(newMenu);
+        menuResult.put(coach, coachMenus);
     }
 
     private static List<String> getMenuList(String currentCategory) {
